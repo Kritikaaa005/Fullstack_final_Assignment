@@ -1,9 +1,9 @@
 <?php
 
 $host = "localhost";
-$db_name = "inventory_db";   // change this on college server
-$username = "root";          // change this on college server
-$password = "";              // change this on college server
+$db_name = "inventory_db";   
+$username = "root";          
+$password = "";             
 
 try {
     $conn = new PDO(
