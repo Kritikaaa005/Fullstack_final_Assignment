@@ -1,3 +1,8 @@
+## Link of the hosted site
+
+Link:  https://student.heraldcollege.edu.np/~np02cs4a240025/
+
+---
 
 
 # Full Stack PHP MVC Inventory Management System
