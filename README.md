@@ -10,7 +10,11 @@ It provides a complete inventory management solution with **user authentication*
 The application is built using a **custom PHP MVC framework** and uses **Blade as a standalone templating engine** (not Laravel).
 
 ---
+## Project Repository
 
+GitHub Repository:  
+https://github.com/Kritikaaa005/Fullstack_final_Assignment.git
+---
 ## 2. Tech Stack
 
 ### 2.1 Backend
