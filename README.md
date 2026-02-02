@@ -1,127 +1,236 @@
-# Full Stack PHP MVC Application
 
-This is a full-stack web application developed using PHP following the MVC (Model-View-Controller) architecture. The application includes user authentication, product management, and supplier management with a MySQL database backend. It is designed to demonstrate full-stack development concepts including routing, session handling, CRUD operations, and separation of concerns.
 
----
+# Full Stack PHP MVC Inventory Management System
 
-## Tech Stack
+## 1. Project Overview
 
-Backend:
-- PHP (Custom MVC Framework)
-- MySQL
-- Composer
+This project is a **Full Stack Web Application** developed using **PHP** following the **MVC (Model–View–Controller)** architecture.
+It provides a complete inventory management solution with **user authentication**, **product management**, and **supplier management**, backed by a **MySQL database**.
 
-Frontend:
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-
-Server & Tools:
-- Apache Server
-- .htaccess for routing
-- Blade Templating Engine
-- CarbonPHP library
+The application is built using a **custom PHP MVC framework** and uses **Blade as a standalone templating engine** (not Laravel).
 
 ---
 
-## Project Structure
+## 2. Tech Stack
 
+### 2.1 Backend
+
+* PHP (Custom MVC Framework)
+* MySQL
+* PDO (Prepared Statements)
+* Composer
+* Blade Templating Engine (Standalone)
+
+### 2.2 Frontend
+
+* HTML5
+* CSS3
+* JavaScript (Vanilla JS, AJAX)
+
+### 2.3 Server & Tools
+
+* Apache Server
+* `.htaccess` for URL routing
+* Session-based authentication
+
+---
+
+## 3. Project Structure
+
+```
 project_root/
-- config/        → Database configuration
-- controllers/  → Application controllers
-- core/         → Router, Autoloader, Blade engine
-- models/       → Database models
-- includes/     → Helper and security files
-- public/       → Public entry point
-  - assets/     → CSS and JavaScript
-  - index.php   → Main application entry
-- vendor/       → Composer dependencies
-- cache/        → Cached files
-- database.sql  → Database schema
-- composer.json → Composer configuration
+│
+├── config/             Database configuration
+├── controllers/       Application controllers
+├── core/              Router, Autoloader, Blade engine
+├── models/            Database models
+├── includes/          Authentication, helpers, security
+├── public/            Public entry point
+│   ├── assets/        CSS and JavaScript files
+│   ├── index.php      Main application entry
+│   └── .htaccess      URL rewriting
+├── views/             Blade templates
+│   ├── auth/
+│   ├── products/
+│   ├── suppliers/
+│   └── layouts/
+├── vendor/            Composer dependencies
+├── cache/             Blade cache
+├── database.sql       Database schema
+└── composer.json
+```
 
 ---
 
-## Implemented Features
+## 4. Login Credentials 
 
-User Authentication:
-- User registration with hashed passwords
-- User login and logout
-- Session-based authentication
-- Protected routes accessible only to logged-in users
+```
+Username: kritika
+Password: admin123
+```
 
-Product Management:
-- View all products
-- Add new products
-- Update existing products
-- Delete products
-- Products are associated with suppliers
-
-Supplier Management:
-- View all suppliers
-- Add new suppliers
-- Update supplier details
-- Delete suppliers
-
-Architecture:
-- MVC pattern used throughout the application
-- Models handle database operations
-- Controllers handle application logic
-- Views render data using Blade templates
-- Central routing system for request handling
-
-Security:
-- Password hashing
-- Session-based access control
-- No direct database access from views
+> These credentials are provided for **demonstration and evaluation purposes only**.
+> Passwords are stored securely using `password_hash()`.
 
 ---
 
-## Application Flow
+## 5. Setup Instructions
 
-1. All requests enter through public/index.php  
-2. The router parses the URL and maps it to a controller and method  
-3. Authentication is checked for protected routes  
-4. Controllers request data from models  
-5. Models interact with the database  
-6. Data is returned to controllers  
-7. Controllers render views using Blade  
-8. User interacts with the interface  
+### Step 1: Clone / Copy Project
 
-Authentication Flow:
-- User registers or logs in
-- Credentials are validated
-- Session is created on success
-- User is redirected to dashboard
-- Logout destroys session and redirects to login page
+Place the project inside your Apache root directory:
 
-Product & Supplier Flow:
-- User selects a module (Products or Suppliers)
-- CRUD operations are performed through controllers
-- Database is updated via models
-- Updated data is displayed in views
+* XAMPP → `htdocs`
+* WAMP → `www`
+
+### Step 2: Create Database
+
+1. Open phpMyAdmin
+2. Create a database named:
+
+   ```
+   np02cs4a240025
+   ```
+3. Import the file:
+
+   ```
+   np02cs4a240025.sql
+   ```
+
+### Step 3: Configure Database Connection
+
+Edit `config/db.php` if required:
+
+```php
+$host = 'localhost';
+$db_name = 'np02cs4a240025';
+$username = 'root';
+$password = '';
+```
+
+### Step 4: Install Dependencies
+
+```bash
+composer install
+```
+
+### Step 5: Enable Apache Rewrite
+
+Ensure `.htaccess` is enabled and `mod_rewrite` is active.
+
+### Step 6: Run the Application
+
+```
+http://localhost/project_root/public
+```
 
 ---
 
-## Data Flow
+## 6. Features Implemented
 
-User Request  
-→ Router  
-→ Controller  
-→ Model  
-→ Database  
-→ Model  
-→ Controller  
-→ View  
-→ User Interface  
+### 6.1 User Authentication
 
+* User login and logout
+* Password hashing
+* Session-based authentication
+* Protected routes for authenticated users
 
+### 6.2 Product Management
 
-## Future Enhancements
+* View all products
+* Add new products
+* Edit existing products
+* Delete products
+* Supplier association
+* Low-stock highlighting
 
-- Improved input validation
-- Search and pagination
-- API integration
-- Enhanced UI/UX
+### 6.3 Supplier Management
 
+* View suppliers
+* Add suppliers
+* Edit supplier details
+* Delete suppliers
+
+---
+
+## 7. Application Architecture
+
+* MVC architecture followed throughout
+* Models handle database operations
+* Controllers manage business logic
+* Views render data using Blade templates
+* Central routing system
+* Single entry point (`public/index.php`)
+
+---
+
+## 8. Application Flow
+
+1. User sends request
+2. Request enters through `public/index.php`
+3. Router maps URL to controller
+4. Authentication is checked
+5. Controller processes request
+6. Model interacts with database
+7. Data is returned to controller
+8. View is rendered using Blade
+9. Response sent to user
+
+---
+
+## 9. Data Flow
+
+```
+User
+ → Router
+ → Controller
+ → Model
+ → Database
+ → Model
+ → Controller
+ → View
+ → User
+```
+
+---
+
+## 10. Security Measures
+
+* **SQL Injection Prevention**
+
+  * PDO prepared statements
+* **XSS Prevention**
+
+  * Escaped output using Blade / `htmlspecialchars()`
+* **Authentication**
+
+  * Session-based access control
+* **Separation of Concerns**
+
+  * No database access in views
+
+---
+
+## 11. Known Issues
+
+* Limited advanced validation
+* No pagination for large datasets
+* Basic UI design
+
+---
+
+## 12. Future Enhancements
+
+* Improved server-side validation
+* Pagination and search functionality
+* REST API support
+* Enhanced UI/UX
+
+---
+
+## 13. Conclusion
+
+This project demonstrates the implementation of a **secure, scalable PHP MVC web application** with proper separation of concerns, authentication, and CRUD functionality. It showcases full-stack development skills using core PHP concepts and modern best practices.
+
+---
 
